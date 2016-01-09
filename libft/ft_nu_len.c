@@ -1,18 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_nu_len.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/02 22:01:59 by eleclet           #+#    #+#             */
-/*   Updated: 2015/12/08 11:22:23 by eleclet          ###   ########.fr       */
+/*   Created: 2016/01/09 18:45:25 by eleclet           #+#    #+#             */
+/*   Updated: 2016/01/09 19:15:29 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	nu_len(int n, int base)
 {
-	write(fd, &c, 1);
+	int i;
+
+	i = 0;
+	if (base == 10)
+	{
+		if (n < 0)
+			n = -n;
+		while (n > 0)
+		{
+			n /= 10;
+			i++;
+		}
+	}
+	if (base ==  2)
+	{
+		while (n >= ft_power(2, i))
+			i++;
+	}
+	return (i);
 }

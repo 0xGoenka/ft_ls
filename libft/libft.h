@@ -6,7 +6,7 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 15:55:37 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/07 14:22:35 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/09 19:03:26 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string.h>
 # include <stdlib.h>
 
+int					nu_len(int n, int base);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);

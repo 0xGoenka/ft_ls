@@ -6,14 +6,15 @@
 #    By: eleclet <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/27 16:08:47 by eleclet           #+#    #+#              #
-#    Updated: 2015/12/17 00:33:55 by eleclet          ###   ########.fr        #
+#    Updated: 2016/01/09 19:17:26 by eleclet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CFLAGS = -Werror -Wextra -Wall
 CC = gcc
-SRC =	ft_memset.c		\
+SRC =	ft_nu_len.c		\
+		ft_memset.c		\
 		ft_bzero.c		\
 		ft_memcpy.c		\
 		ft_memccpy.c	\
