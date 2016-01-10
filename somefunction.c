@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   somefunction.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/01 18:34:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/10 20:29:20 by eleclet          ###   ########.fr       */
+/*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
+/*   Updated: 2016/01/10 20:18:50 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ls.h"
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+char	*getpath(char *path, char *folder)
 {
-	char	*s2;
-	size_t	i;
-
+	size_t len;
+	size_t len2;
+	size_t i;
+	char *s;
+	
+	len = ft_strlen(path);
+	len2 = ft_strlen(folder);
 	i = 0;
-	if (!s)
-		return (NULL);
-	if ((start + len) > ft_strlen(s))
-		return (NULL);
-	if (!(s2 = (char *)malloc(len + 1)))
-		return (NULL);
+	if(!(s = (char *)malloc(sizeof(char) * len + len2 + 2)))
+		perror("malloc esteb : ");
 	while (i < len)
-	{
-		s2[i] = s[start + i];
-		i++;
-	}
-	s2[i] = '\0';
-	return (s2);
+		s[i] = path[i], i++;
+	s[i] = '/', i++;
+	while (i < len + len2 + 1)
+		s[i] = folder[i - len -1], i++;
+	s[i] = '\0';
+	return (s);
 }

@@ -6,7 +6,7 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/09 23:16:32 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/10 16:03:48 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct	s_file
 }				t_file;
 const char	*get_time(struct stat *s_stat);
 const char	*dec_to_bin(int n);
-const char *parse_right(int n);
+const char	*parse_right(char *s);
 const char	*ufid(uid_t uid);
 const char	*gfid(gid_t gid);
-
+char		*getpath(char *path, char *folder);
 #endif
