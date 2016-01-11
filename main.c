@@ -6,7 +6,7 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 14:35:55 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/10 20:45:12 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/11 16:40:32 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ int	main(int argc, char **argv)
 	{
 		if (lstat(getpath(path, s_dir->d_name), &s_stat) == -1)
 			perror("lstat");
-		printf("size:%lld   " , s_stat.st_size);
-		printf("mode: %s   " ,parse_right((char *)dec_to_bin(s_stat.st_mode)));
-		printf("user:%s   ", ufid(s_stat.st_uid));
+		printf("%s   " ,getperm(s_stat.st_mode));
+		printf("%d   ", s_stat.st_nlink);
+		printf("%s   ", ufid(s_stat.st_uid));
+		printf("%s   ", gfid(s_stat.st_gid));
+		printf("%lld   " , s_stat.st_size);
 		printf("%s   " , get_time(&s_stat));
 		printf("%s\n", s_dir->d_name);
 		//printf("path : %s\n", getpath(argv[1], s_dir->d_name));
