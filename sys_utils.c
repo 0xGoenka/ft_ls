@@ -6,13 +6,13 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 15:51:29 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/11 15:25:33 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/13 15:44:36 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls.h"
 
-const char	*get_time(struct stat *s_stat)
+char	*get_time(struct stat *s_stat)
 {
 	char *s;
 
@@ -20,20 +20,20 @@ const char	*get_time(struct stat *s_stat)
 	s = ft_strsub(s, 4, ft_strlen(s) - 13);
 	return (s);
 }
-const char	*ufid(uid_t uid) // user from id
+char	*ufid(uid_t uid) // user from id
 {
 	struct passwd *user;
 
 	user = getpwuid(uid);
 	return (user->pw_name);
 }
-const char	*gfid(gid_t gid) // group from	id
+ char	*gfid(gid_t gid) // group from	id
 {
 	struct group *g;
 	g = getgrgid(gid);
 	return (g->gr_name);
 }
-const char	*parse_right(char *s)
+char	*parse_right(char *s)
 {
 	char *ret;
 
@@ -55,7 +55,7 @@ const char	*parse_right(char *s)
 	ret = ft_strdup(s + 5);
 	return (ret);
 }
-const char	*dec_to_bin(int n)
+char	*dec_to_bin(int n)
 {
 	char *s;
 	int i;
