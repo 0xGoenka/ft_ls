@@ -6,7 +6,7 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/13 14:29:04 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/25 18:48:30 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*getperm(mode_t mode)
 	str[1] = (mode &S_IRUSR) ? 'r' : '-';
 	str[2] = (mode &S_IWUSR) ? 'w' : '-';
 	str[3] = (mode &S_IXUSR) ? 'x' : '-';
+	str[10] = '\0';
 	return (str);
 }
 t_lst	*getinfo(char *s)
@@ -63,8 +64,8 @@ t_lst	*getinfo(char *s)
 	struct stat stat;
 	t_file	*info;
 	t_lst *liste;
-
-	liste = NULL;
+	
+	liste = init();
 	info = malloc(sizeof(t_file));
 	stream = opendir(s);
 		while((dir = readdir(stream)))
@@ -77,8 +78,8 @@ t_lst	*getinfo(char *s)
 			info->owner = ufid(stat.st_uid);
 			info->group = gfid(stat.st_gid);
 			info->size = stat.st_size;
-			liste = add(liste, "pute", 3, *info);
-
+			info->time = get_time(&stat);
+			add(liste, "pute", 3, *info);
 		}
 		closedir(stream);
 	return (liste);

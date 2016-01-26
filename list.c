@@ -6,37 +6,58 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 12:30:47 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/13 15:13:43 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/25 18:48:29 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls.h"
 
-t_lst	*add(t_lst *liste, char *s, int index, t_file info)
+void	add(t_lst *lst, char *s, int index, t_file info)
 {
-	t_lst *tmp;
-
-	tmp = malloc(sizeof(t_lst));
-	if (tmp)
-	{
-		tmp->s = s;
-		tmp->i = index;
-		tmp->info = info;
-		tmp->next = liste;	
-	}
-	return (tmp);
-
-}
-t_lst	*printlist(t_lst *lst)
-{
-	printf("%s  ",lst->info.perm);
-	printf("%d  ",lst->info.nblink);
-	printf("%s  ",lst->info.owner);
-	printf("%s  ",lst->info.group);
-	printf("%lld  ",lst->info.size);
-	printf("%s \n",lst->info.name);
-	write(1,lst->info.name, ft_strlen(lst->info.name));
-	ft_putchar('\n');
+	while (lst->next != NULL)
+		lst = lst->next;
+	if(!(lst->next = malloc(sizeof(t_lst))))
+		perror("malloc esteban : ");
 	lst = lst->next;
+	lst->i = index;
+	lst->next = NULL;
+	lst->info = info;
+}
+void	printlist(t_lst *lst,int i, int y)
+{
+	if (!lst)
+		return;
+	ft_putstr(lst->info.perm);
+	space(nu_len(lst->info.nblink, 10), i);
+	ft_putnbr(lst->info.nblink);
+	ft_putstr(" ");
+	ft_putstr(lst->info.owner);
+	ft_putstr("  ");
+	ft_putstr(lst->info.group);
+	space(nu_len(lst->info.size , 10), y);
+	ft_putnbr(lst->info.size);
+	ft_putstr(" ");
+	ft_putstr(lst->info.time);
+	ft_putstr("  ");
+	ft_putstr(lst->info.name);
+	ft_putstr("  ");
+	ft_putchar('\n');
+	printlist(lst->next, i, y);
+}
+void	print(t_lst *lst)
+{
+	if (!lst)
+		return;
+	ft_putstr(lst->info.name);
+	ft_putchar('\t');
+	print(lst->next);
+}
+t_lst	*init(void)
+{
+	t_lst *lst;
+	
+	lst = (t_lst *)malloc(sizeof(t_lst));
+	lst->i = -1;
+	lst->next = NULL;
 	return (lst);
 }

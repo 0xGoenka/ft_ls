@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nu_len.c                                        :+:      :+:    :+:   */
+/*   finc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/09 18:45:25 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/25 13:12:21 by eleclet          ###   ########.fr       */
+/*   Created: 2016/01/25 14:08:12 by eleclet           #+#    #+#             */
+/*   Updated: 2016/01/25 14:10:07 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
 
-int	nu_len(int n, int base)
+int		main(int argc, char **argv,char **envp)
 {
-	int i;
-
-	i = 0;
-	if (base == 10)
+	while (*envp)
 	{
-		if (n == 0)
-			return (1);
-		if (n < 0)
-			n = -n;
-		while (n > 0)
-		{
-			n /= 10;
-			i++;
-		}
+	printf("%s\n", *envp++);
 	}
-	if (base ==  2)
-	{
-		while (n >= ft_power(2, i))
-			i++;
-	}
-	return (i);
+	return (0);
 }

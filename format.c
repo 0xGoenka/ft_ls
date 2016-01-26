@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nu_len.c                                        :+:      :+:    :+:   */
+/*   format.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/09 18:45:25 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/25 13:12:21 by eleclet          ###   ########.fr       */
+/*   Created: 2016/01/25 12:01:34 by eleclet           #+#    #+#             */
+/*   Updated: 2016/01/25 13:14:57 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ls.h"
 
-int	nu_len(int n, int base)
+void	space(int i, int max)
 {
-	int i;
-
-	i = 0;
-	if (base == 10)
+	while (i < max)
 	{
-		if (n == 0)
-			return (1);
-		if (n < 0)
-			n = -n;
-		while (n > 0)
-		{
-			n /= 10;
-			i++;
-		}
+		ft_putchar(' ');
+		i++;
 	}
-	if (base ==  2)
-	{
-		while (n >= ft_power(2, i))
-			i++;
-	}
-	return (i);
+		ft_putchar(' ');
+		ft_putchar(' ');
 }
+
