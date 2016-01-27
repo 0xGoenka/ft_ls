@@ -6,7 +6,7 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/26 11:58:39 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/27 20:53:19 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ char	*getpath(char *path, char *folder)
 		perror("malloc esteb : ");
 	while (i < len)
 		s[i] = path[i], i++;
-	s[i] = '/', i++;
+	if (s[i - 1] != '/')
+		s[i] = '/', i++;
+	//printf("path[i] = %s foleder = %s\n",path, folder);
 	while (i < len + len2 + 1)
 		s[i] = folder[i - len -1], i++;
 	s[i] = '\0';
+	//printf("path = %s\n",s);
 	return (s);
 }
 
@@ -64,12 +67,18 @@ t_lst	*getinfo(char *s)
 	struct stat stat;
 	t_file	*info;
 	t_lst *liste;
-	
+
+	//dir = malloc(sizeof(struct dirent));
 	liste = init();
 	info = malloc(sizeof(t_file));
-	stream = opendir(s);
-		while((dir = readdir(stream)))
+	if(!(stream = opendir(s)))
+	{
+		printf("ft_ls : %s: No such file or directory\n", s);
+			return (0);
+	}
+		while((dir = readdir(stream)) != NULL)
 		{
+			//perror("readdir");
 			if (lstat(getpath(s, dir->d_name), &stat) == -1)
 				perror("lstat error : ");
 			info->name = dir->d_name;
@@ -81,6 +90,9 @@ t_lst	*getinfo(char *s)
 			info->time = get_time(&stat);
 			add(liste, 3, *info);
 		}
+		free(info);
+		free(dir);
+		dir = NULL;
 		closedir(stream);
 	return (liste);
 }

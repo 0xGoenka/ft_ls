@@ -6,17 +6,17 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 14:08:12 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/26 14:08:59 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/26 15:45:38 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "ls.h"
 
-int		main(int argc, char **argv,char **envp)
+void	recursive(char *entry)
 {
-	while (*envp)
-	{
-	printf("%s\n", *envp++);
-	}
-	return (0);
+	
+}
+char *find_next_dir(t_lst *lst)
+{
+	
 }

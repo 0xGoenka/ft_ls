@@ -6,7 +6,7 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 12:30:47 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/26 11:55:11 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/27 20:53:22 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,16 @@ t_lst	*init(void)
 	lst->i = -1;
 	lst->next = NULL;
 	return (lst);
+}
+void		lstdel(t_lst *lst)
+{
+	t_lst *tmp;
+
+	while (lst)
+	{
+		tmp = lst;
+		lst = lst->next;
+		free(tmp);
+		tmp = NULL;
+	}
 }

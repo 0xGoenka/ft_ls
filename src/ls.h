@@ -6,7 +6,7 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/26 13:49:56 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/27 18:51:40 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*getpath(char *path, char *folder);
 char	*getperm(mode_t mode);
 int		findmax(t_lst *lst,int i);
 void	space(int i, int max);
+void	lstdel(t_lst *lst);
 t_lst	*init(void);
 void	print(t_lst *lst);
 int		good(char **argv);
