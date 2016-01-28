@@ -6,7 +6,7 @@
 #    By: eleclet <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/26 11:26:01 by eleclet           #+#    #+#              #
-#    Updated: 2016/01/26 12:22:23 by eleclet          ###   ########.fr        #
+#    Updated: 2016/01/28 19:02:41 by eleclet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,9 @@ all : $(NAME)
 
 $(NAME) :
 	@make re -C src/libft/
-	@gcc -c $(SRC) $(CFLAGS) -I./src/
-	@gcc $(OBJ) src/libft/libft.a -o $(NAME) 
+	@gcc  $(SRC) $(CFLAGS) -I./src/ -o ft_ls
 clean :
 	@make clean -C src/libft/
-	@rm $(OBJ)
 fclean : clean
 	rm $(NAME)
 re : fclean all

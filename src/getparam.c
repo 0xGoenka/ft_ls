@@ -6,7 +6,7 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 14:52:08 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/27 15:53:23 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/28 19:03:57 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ char	*getargv(int argc,char **argv)
 {
 	if (argc == 1)
 		return (".");
-	return ("sdasd");
+	return (argv[1]);
 }

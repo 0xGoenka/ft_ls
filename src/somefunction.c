@@ -6,7 +6,7 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/27 20:53:19 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/28 14:02:19 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_lst	*getinfo(char *s)
 	info = malloc(sizeof(t_file));
 	if(!(stream = opendir(s)))
 	{
+		perror("opendir");
 		printf("ft_ls : %s: No such file or directory\n", s);
 			return (0);
 	}

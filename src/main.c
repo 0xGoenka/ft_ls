@@ -6,7 +6,7 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 14:35:55 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/27 20:53:16 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/01/28 17:20:05 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	recursive(char *s)
 	char *str;
 	t_lst *lst;
 	lst = init();
-	
 	stream = opendir(s);
+	//perror("open main");
 	if(!(lst = getinfo(s)))
 	{
 		return (0);
@@ -47,17 +47,14 @@ int	recursive(char *s)
 		str = getperm(stat.st_mode);
 		if (str[0] == 'd')
 		{
-			//printf ("dir = %s\n", dir->d_name);
 		   if (ft_strcmp(dir->d_name, ".") != 0 && ft_strcmp(dir->d_name, "..") != 0)	
 		   {	 
 				printf("\n");
 				recursive(getpath(s,dir->d_name));
 		   }
 		}
-	/*	else
-			printf(" %s ", dir->d_name);*/
-		//closedir(stream);
 	}
+		closedir(stream);
 	return (0);
 }
 int		main(int argc, char **argv)
