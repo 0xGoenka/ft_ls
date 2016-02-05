@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 14:35:55 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/28 17:20:05 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/05 03:30:23 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ int	recursive(char *s)
 {
 	DIR *stream;
 	struct dirent *dir;
-	struct stat stat;
-	char *str;
 	t_lst *lst;
+	t_maxlen *i;
+
 	lst = init();
+	i = malloc(sizeof(t_maxlen));
+
 	stream = opendir(s);
 	//perror("open main");
 	if(!(lst = getinfo(s)))
@@ -33,9 +35,11 @@ int	recursive(char *s)
 		return (0);
 	}
 	printf("%s :\n", s);
-	printlist(lst->next,findmax(lst->next, 1), findmax(lst->next, 0));
+	ct_all(lst->next, &i);
+	sortliste(&lst, -1);
+	printlist(lst->next, *i);
 	lstdel(lst);
-	
+
 	if (!stream)
 	{
 		printf("error exit ---------------------\n") ;
@@ -43,12 +47,10 @@ int	recursive(char *s)
 	}
 	while ((dir = readdir(stream)))
 	{
-		lstat(getpath(s, dir->d_name) , &stat);
-		str = getperm(stat.st_mode);
-		if (str[0] == 'd')
+		if (dir->d_type == DT_DIR)
 		{
-		   if (ft_strcmp(dir->d_name, ".") != 0 && ft_strcmp(dir->d_name, "..") != 0)	
-		   {	 
+		   if (ft_strcmp(dir->d_name, ".") != 0 && ft_strcmp(dir->d_name, "..") != 0)
+		   {
 				printf("\n");
 				recursive(getpath(s,dir->d_name));
 		   }
@@ -62,30 +64,3 @@ int		main(int argc, char **argv)
 	recursive(argv[1]);
 	return (0);
 }
-/*int	main(int argc, char **argv)
-{
-	DIR *stream;
-	struct dirent *s_dir;
-	struct stat s_stat;
-	char *path = argv[1];
-	char *s;
-
-	if (!argv[1])
-		path = ft_strdup(".");
-	stream = opendir(argv[1]);
-	
-	if (!stream)
-		return (xit("Can t open : " , path));
-	while ((s_dir = readdir(stream)))
-	{
-		if (lstat(getpath(path, s_dir->d_name), &s_stat) == -1)
-			perror("lstat");
-		s = getperm(s_stat.st_mode);
-		if (s[0] == 'd')
-			printf("main -> %s char s[0] = %c\n", s_dir->d_name, s[0]),recursive(s_dir->d_name);
-		printf("path : %s\n", getpath(argv[1], s_dir->d_name));
-
-	}
-	closedir(stream);
-	return (0);
-}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sys_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 15:51:29 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/27 20:53:21 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/04 18:44:53 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ufid(uid_t uid) // user from id
 	user = getpwuid(uid);
 	return (user->pw_name);
 }
- char	*gfid(gid_t gid) // group from	id
+char	*gfid(gid_t gid) // group from	id
 {
 	struct group *g;
 	g = getgrgid(gid);
@@ -50,9 +50,35 @@ int		findmax(t_lst *lst, int i)
 	else
 	{
 		while (lst)
-		{	
+		{
 			if (ret < nu_len(lst->info.size,10))
 				ret = nu_len(lst->info.size,10);
+			lst = lst->next;
+		}
+	}
+	return (ret);
+}
+
+int		findmaxe(t_lst *lst, int i)
+{
+	int ret;
+
+	ret = 0;
+	if (i)
+	{
+		while (lst)
+		{
+			if (ret < ft_strlen(lst->info.owner))
+					ret = ft_strlen(lst->info.owner);
+			lst = lst->next;
+		}
+	}
+	else
+	{
+		while (lst)
+		{
+			if (ret < ft_strlen(lst->info.group))
+				ret = ft_strlen(lst->info.group);
 			lst = lst->next;
 		}
 	}

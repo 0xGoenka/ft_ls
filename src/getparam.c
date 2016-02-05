@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getparam.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 14:52:08 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/28 19:03:57 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/05 03:50:31 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,17 @@ int		good(char **argv)
 		}
 		else if (!validfile(argv[i]))
 			return (0);
-	ft_putstr(ft_strjoin(argv[i]," valid file! \n"));
+
 		i++;
 	}
 	return (1);
 }
 int		parseargv(char *s)
 {
+	char *argv;
+
 	s++;
+	argv = s;
 	while (*s)
 	{
 		if (*s != 'R' && *s != 'r' && *s != 'l' && *s != 'a' && *s != 't')
@@ -57,16 +60,20 @@ int		parseargv(char *s)
 		}
 		s++;
 	}
+	ft_putendl(ft_strjoin("-",argv));
 	return (1);
 }
 int		validfile(char *s)
 {
 	struct stat s_stat;
 	if((lstat(s, &s_stat) >= 0))
+	{
+		ft_putstr(ft_strjoin(s," valid file! \n"));
 		return (1);
+	}
 	ft_putstr("ls: ");
 	ft_putstr(s);
-	ft_putstr(": No such file or directory\n");	
+	ft_putstr(": No such file or directory\n");
 	return (0);
 }
 char	*getargv(int argc,char **argv)
