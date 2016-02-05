@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/05 03:33:31 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/05 04:32:29 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ typedef struct		s_maxlen
 }					t_maxlen;
 typedef struct		s_liste
 {
-	char *s;
+	char			*s;
 	struct s_liste *next;
 }					t_liste;
+
 void				add(t_lst *liste, int index, t_file info);
 void				printlist(t_lst *lst, t_maxlen i);
 t_lst				*getinfo(char *s);

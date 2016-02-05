@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 15:51:29 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/04 18:44:53 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/05 04:34:25 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*get_time(struct stat *s_stat)
 	s = ft_strsub(s, 4, ft_strlen(s) - 13);
 	return (s);
 }
+
 char	*ufid(uid_t uid) // user from id
 {
 	struct passwd *user;
@@ -27,12 +28,15 @@ char	*ufid(uid_t uid) // user from id
 	user = getpwuid(uid);
 	return (user->pw_name);
 }
+
 char	*gfid(gid_t gid) // group from	id
 {
 	struct group *g;
+
 	g = getgrgid(gid);
 	return (g->gr_name);
 }
+
 int		findmax(t_lst *lst, int i)
 {
 	int ret;
@@ -51,8 +55,8 @@ int		findmax(t_lst *lst, int i)
 	{
 		while (lst)
 		{
-			if (ret < nu_len(lst->info.size,10))
-				ret = nu_len(lst->info.size,10);
+			if (ret < nu_len(lst->info.size, 10))
+				ret = nu_len(lst->info.size, 10);
 			lst = lst->next;
 		}
 	}
@@ -68,8 +72,8 @@ int		findmaxe(t_lst *lst, int i)
 	{
 		while (lst)
 		{
-			if (ret < ft_strlen(lst->info.owner))
-					ret = ft_strlen(lst->info.owner);
+			if (ret < (int)ft_strlen(lst->info.owner))
+				ret = ft_strlen(lst->info.owner);
 			lst = lst->next;
 		}
 	}
@@ -77,7 +81,7 @@ int		findmaxe(t_lst *lst, int i)
 	{
 		while (lst)
 		{
-			if (ret < ft_strlen(lst->info.group))
+			if (ret < (int)ft_strlen(lst->info.group))
 				ret = ft_strlen(lst->info.group);
 			lst = lst->next;
 		}
