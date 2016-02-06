@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/05 03:27:53 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/06 05:04:27 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_lst	*getinfo(char *s)
 			info->group = gfid(stat.st_gid);
 			info->size = stat.st_size;
 			info->time = get_time(&stat);
-			add(liste, 3, *info);
+			add(liste, *info);
 		}
 		closedir(stream);
 	return (liste);

@@ -6,20 +6,19 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 12:30:47 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/05 03:33:10 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/06 05:04:45 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls.h"
 
-void	add(t_lst *lst, int index, t_file info)
+void	add(t_lst *lst, t_file info)
 {
 	while (lst->next != NULL)
 		lst = lst->next;
 	if(!(lst->next = malloc(sizeof(t_lst))))
 		perror("malloc esteban : ");
 	lst = lst->next;
-	lst->i = index;
 	lst->next = NULL;
 	lst->info = info;
 
@@ -59,7 +58,6 @@ t_lst	*init(void)
 	t_lst *lst;
 
 	lst = (t_lst *)malloc(sizeof(t_lst));
-	lst->i = -1;
 	lst->next = NULL;
 	return (lst);
 }

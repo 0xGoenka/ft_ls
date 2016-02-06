@@ -1,55 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getparam.c                                         :+:      :+:    :+:   */
+/*   shellparser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/25 14:52:08 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/06 03:02:18 by eleclet          ###   ########.fr       */
+/*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
+/*   Updated: 2016/02/06 04:58:25 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls.h"
 
-int		main(int argc, char **argv)
-{
-	if (!good(argv))
-		return (0);
-	printf("end of prog\n");
-	return (0);
-}
 
-int		good(char **argv)
+int		argvparser(char **argv)
 {
 	int i;
-	int j;
+	char *param;
 
+	param = NULL;
 	i = 1;
-	j = 1;
-	while (argv[i])
-	{
-		if (argv[i][0] == '-' && argv[i][1] == '-' && ft_strlen(argv[i]) == 2)
-			i++;
-		else if (argv[i][0] == '-' && ft_strlen(argv[i]) != 1)
-		{
-			if (!parseargv(argv[i]))
-				return (0);
-		}
-		else if (!validfile(argv[i]))
-			return (0);
 
+	while (argv[i]) // parse parameter
+	{
+		if (argv[i][0] == '-' && argv[i][1] == '-' && ft_strlen(argv[1]) == 2)
+		{
+			i++;
+			break ;
+		}
+		if (argv[i][0] != '-')
+		{
+			i++;
+			break ;
+		}
+		if(!parseargv(argv[i], &param))
+		{
+			i++;
+			break ;
+		}
 		i++;
 	}
-	return (1);
+	i--;
+	while (argv[i]) // parse file
+	{
+		if (validfile(argv[i]))
+			printf("valid %s\n", argv[i]);
+		i++;
+	}
+	ft_putendl(param);
+	return (0);
 }
-
-int		parseargv(char *s)
+int		parseargv(char *s, char **param)
 {
-	char *argv;
 
 	s++;
-	argv = s;
+	*param = ft_strjoin(*param,s);
 	while (*s)
 	{
 		if (*s != 'R' && *s != 'r' && *s != 'l' && *s != 'a' && *s != 't')
@@ -60,10 +65,9 @@ int		parseargv(char *s)
 		}
 		s++;
 	}
-	ft_putendl(ft_strjoin("-", argv));
+	ft_putendl(ft_strjoin("-", *param));
 	return (1);
 }
-
 int		validfile(char *s)
 {
 	struct stat s_stat;
@@ -76,5 +80,10 @@ int		validfile(char *s)
 	ft_putstr("ls: ");
 	ft_putstr(s);
 	ft_putstr(": No such file or directory\n");
+	return (0);
+}
+int		main(int argc, char **argv)
+{
+	argvparser(argv);
 	return (0);
 }
