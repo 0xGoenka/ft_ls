@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/06 05:05:42 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/08 05:01:14 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ typedef struct		s_maxlen
 	int				c;
 	int				d;
 }					t_maxlen;
-typedef struct		s_liste
+typedef struct		s_name
 {
 	char			*name;
-	struct s_liste *next;
-}					t_liste;
+	struct s_name	*next;
+}					t_name;
 
 void				add(t_lst *liste, t_file info);
 void				printlist(t_lst *lst, t_maxlen i);
@@ -80,10 +80,14 @@ void				lstdel(t_lst *lst);
 t_lst				*init(void);
 void				print(t_lst *lst);
 int					good(char **argv);
-int					parseargv(char *s, char **param);
+int					parseargv(char *s, char **param, int *i);
 int					validfile(char *s);
 char				*getargv(int argc, char **argv);
 int					findmaxe(t_lst *lst, int i);
 void				ct_all(t_lst *lst, t_maxlen **i);
 void 				sortliste(t_lst **lst, int rev);
+int					parsefile(char *s, char **file);
+t_name				*initfile(void);
+void				addfile(t_name *lst, char *name);
+void		printname(t_name *file);
 #endif
