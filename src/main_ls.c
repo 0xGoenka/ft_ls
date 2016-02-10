@@ -6,13 +6,13 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 13:15:25 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/10 14:59:20 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/10 19:37:13 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls.h"
 
-main_ls(*param)
+main_ls(char *param, t_name)
 {
 	if (!ft_strchr('R', param))
 	{
@@ -20,9 +20,9 @@ main_ls(*param)
 	}
 	else
 	{
-
-
 		if (ft_strchr('l', param))
-			printlist();
+		{
+
+		}
 	}
 }

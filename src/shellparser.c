@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/10 11:04:54 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/10 19:37:12 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int		argvparser(char **argv, char **param, t_name *lst)
 			break ;
 			i++;
 	}
-	fillperm()
 	while (argv[i]) // parse file
 	{
 		addfile(lst, argv[i]);
@@ -88,6 +87,7 @@ int controller(char **argv)
 	ft_putendl(param);
 	ft_putstr("file -> \n");
 	sortname(&name, 1);
+	main_ls()
 	printname(name->next);
 	return (0);
 }

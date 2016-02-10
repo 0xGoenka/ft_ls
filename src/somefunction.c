@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/10 15:53:15 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/10 19:37:17 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*getperm(mode_t mode)
 	str[10] = '\0';
 	return (str);
 }
+
 t_lst	*getinfo(char *s)
 {
 	DIR *stream;
