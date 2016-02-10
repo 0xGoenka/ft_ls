@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 14:35:55 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/05 03:30:23 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/10 18:11:49 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int	recursive(char *s)
 	struct dirent *dir;
 	t_lst *lst;
 	t_maxlen *i;
+	int a;
+
+	a = 1;
 
 	lst = init();
 	i = malloc(sizeof(t_maxlen));
@@ -31,13 +34,11 @@ int	recursive(char *s)
 	stream = opendir(s);
 	//perror("open main");
 	if(!(lst = getinfo(s)))
-	{
 		return (0);
-	}
 	printf("%s :\n", s);
 	ct_all(lst->next, &i);
 	sortliste(&lst, -1);
-	printlist(lst->next, *i);
+	printlist(lst->next, *i, a);
 	lstdel(lst);
 
 	if (!stream)

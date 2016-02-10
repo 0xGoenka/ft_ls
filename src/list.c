@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 12:30:47 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/06 05:04:45 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/10 18:14:27 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,32 @@ void	add(t_lst *lst, t_file info)
 	lst->info = info;
 
 }
-void	printlist(t_lst *lst, t_maxlen i)
+void	printlist(t_lst *lst, t_maxlen i, int a)
 {
 	if (!lst)
 		return;
-	ft_putstr(lst->info.perm);
-	space(nu_len(lst->info.nblink, 10), i.a, 2);
-	ft_putnbr(lst->info.nblink);
-	ft_putstr(" ");
-	ft_putstr(lst->info.owner);
-	space(ft_strlen(lst->info.owner), i.c, 1);
-	space(ft_strlen(lst->info.group), i.d, 1);
-	ft_putstr(lst->info.group);
-	space(nu_len(lst->info.size , 10), i.b, 2);
-	ft_putnbr(lst->info.size);
-	ft_putstr(" ");
-	ft_putstr(lst->info.time);
-	ft_putstr("  ");
-	ft_putstr(lst->info.name);
-	ft_putstr("  ");
-	ft_putchar('\n');
-	printlist(lst->next, i);
+	if (a && lst->info.name[0] == '.')
+		printlist(lst->next, i, a);
+	else
+	{
+		ft_putstr(lst->info.perm);
+		space(nu_len(lst->info.nblink, 10), i.a, 2);
+		ft_putnbr(lst->info.nblink);
+		ft_putstr(" ");
+		ft_putstr(lst->info.owner);
+		space(ft_strlen(lst->info.owner), i.c, 1);
+		space(ft_strlen(lst->info.group), i.d, 1);
+		ft_putstr(lst->info.group);
+		space(nu_len(lst->info.size , 10), i.b, 2);
+		ft_putnbr(lst->info.size);
+		ft_putstr(" ");
+		ft_putstr(lst->info.time);
+		ft_putstr("  ");
+		ft_putstr(lst->info.name);
+		ft_putstr("  ");
+		ft_putchar('\n');
+		printlist(lst->next, i, a);
+	}
 }
 void	print(t_lst *lst)
 {

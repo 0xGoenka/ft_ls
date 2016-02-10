@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/08 05:01:14 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/10 17:57:48 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct		s_name
 }					t_name;
 
 void				add(t_lst *liste, t_file info);
-void				printlist(t_lst *lst, t_maxlen i);
+void				printlist(t_lst *lst, t_maxlen i, int a);
 t_lst				*getinfo(char *s);
 char				*get_time(struct stat *s_stat);
 char				*dec_to_bin(int n);
@@ -89,5 +89,6 @@ void 				sortliste(t_lst **lst, int rev);
 int					parsefile(char *s, char **file);
 t_name				*initfile(void);
 void				addfile(t_name *lst, char *name);
-void		printname(t_name *file);
+void				printname(t_name *file);
+void				sortname(t_name **lst, int rev);
 #endif

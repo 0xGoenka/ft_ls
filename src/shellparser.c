@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/08 05:37:50 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/10 11:04:54 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,19 @@
 int		argvparser(char **argv, char **param, t_name *lst)
 {
 	int i;
-	char *s;
-	i = 0;
+	int ret;
 
-	while (argv[i++]) // parse parameter
+	i = 1;
+
+	while (argv[i]) // parse parameter
 	{
-		if (parseargv(argv[i], param, &i) == - 1)
+		if ((ret = parseargv(argv[i], param, &i)) == -1)
 			return (1);
-		if (parseargv(argv[i], param, &i) == 0)
+		if (ret == 0)
 			break ;
+			i++;
 	}
+	fillperm()
 	while (argv[i]) // parse file
 	{
 		addfile(lst, argv[i]);
@@ -35,7 +38,6 @@ int		argvparser(char **argv, char **param, t_name *lst)
 }
 int		parseargv(char *s, char **param, int *i)
 {
-
 	if (s[0] != '-')
 		return (0);
 	if (ft_strcmp(s, "--") == 0)
@@ -85,8 +87,8 @@ int controller(char **argv)
 	}
 	ft_putendl(param);
 	ft_putstr("file -> \n");
+	sortname(&name, 1);
 	printname(name->next);
-
 	return (0);
 }
 int		main(int argc, char **argv)
