@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/10 17:57:48 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/11 16:29:19 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct		s_file
 	long long int	size;
 	char			*time;
 	struct s_file 	*next;
-	struct s_file 	*prev;
+	int				modif;
 }					t_file;
 
 typedef struct		s_lst
@@ -91,4 +91,6 @@ t_name				*initfile(void);
 void				addfile(t_name *lst, char *name);
 void				printname(t_name *file);
 void				sortname(t_name **lst, int rev);
+void				sortit(t_name **name, char *param);
+void sortbytime(t_lst **lst, int rev);
 #endif

@@ -6,23 +6,28 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 13:15:25 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/10 19:37:13 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/11 17:34:23 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls.h"
 
-main_ls(char *param, t_name)
+void	sortit(t_name **name, char *param)
 {
-	if (!ft_strchr('R', param))
+	if (!ft_strchr('R'))
 	{
-		return (0);
-	}
-	else
-	{
-		if (ft_strchr('l', param))
+		if (ft_strchr('l'))
 		{
+			if (ft_strchr('r'))
+			{
+				if (strchr('a'))
+			}
 
 		}
+		else
 	}
+}
+void	main_ls(char *param, t_name)
+{
+
 }

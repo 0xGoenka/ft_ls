@@ -6,14 +6,14 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/10 19:37:12 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/11 17:34:21 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls.h"
 
 
-int		argvparser(char **argv, char **param, t_name *lst)
+int		argvparser(char **argv, char **param, t_lst *lst)
 {
 	int i;
 	int ret;
@@ -30,7 +30,7 @@ int		argvparser(char **argv, char **param, t_name *lst)
 	}
 	while (argv[i]) // parse file
 	{
-		addfile(lst, argv[i]);
+		add(lst, getinfo(argv[i]));
 		i++;
 	}
 	return (0);
@@ -75,9 +75,9 @@ int		validfile(char *s)
 int controller(char **argv)
 {
 	char *param;
-	t_name *name;
+	t_lst *name;
 
-	name = initfile();
+	name = init();
 	param = NULL;
 	if (argvparser(argv, &param, name) == 1)
 	{
@@ -86,8 +86,8 @@ int controller(char **argv)
 	}
 	ft_putendl(param);
 	ft_putstr("file -> \n");
+	sortit(&name, param)
 	sortname(&name, 1);
-	main_ls()
 	printname(name->next);
 	return (0);
 }

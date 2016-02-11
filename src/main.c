@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 14:35:55 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/10 18:11:49 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/11 16:36:35 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	recursive(char *s)
 		return (0);
 	printf("%s :\n", s);
 	ct_all(lst->next, &i);
-	sortliste(&lst, -1);
+	sortbytime(&lst, 1);
 	printlist(lst->next, *i, a);
 	lstdel(lst);
 
