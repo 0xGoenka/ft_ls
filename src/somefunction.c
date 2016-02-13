@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/11 16:25:01 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/13 20:58:04 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*getpath(char *path, char *folder)
 	len = ft_strlen(path);
 	len2 = ft_strlen(folder);
 	i = 0;
-	if(!(s = (char *)malloc(sizeof(char) * len + len2 + 2)))
+	if(!(s = (char *)malloc(sizeof(char) * (len + len2 + 2))))
 		perror("malloc esteb : ");
 	while (i < len)
 		s[i] = path[i], i++;
@@ -57,7 +57,29 @@ char	*getperm(mode_t mode)
 	str[10] = '\0';
 	return (str);
 }
+void error_finder(t_lst *lst)
+{
+	struct stat stat;
 
+	while (lst->next)
+	{
+		lstat(getpath(path, lst->info.name), &stat);
+		lst = lst->next;
+	}
+}
+void getfileinfo(t_lst	**liste, char *file)
+{
+	t_file *info;
+	struct stat stat;
+
+	info = malloc(sizeof(t_file));
+	if (lstat(file , &stat) == -1)
+		perror("getfileinfo.lstat - >");
+	info->size = stat.st_size;
+	info->modif = stat.st_mtime;
+	info->name = file;
+	add(*liste, *info);
+}
 t_lst	*getinfo(char *s)
 {
 	DIR *stream;

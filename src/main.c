@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 14:35:55 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/11 16:36:35 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/13 19:25:02 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	recursive(char *s)
 
 	a = 1;
 
-	lst = init();
 	i = malloc(sizeof(t_maxlen));
 
 	stream = opendir(s);

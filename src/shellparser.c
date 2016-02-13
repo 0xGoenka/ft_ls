@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/11 17:34:21 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/13 20:15:20 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		argvparser(char **argv, char **param, t_lst *lst)
 {
 	int i;
 	int ret;
+	t_lst *list;
 
 	i = 1;
 
@@ -30,7 +31,7 @@ int		argvparser(char **argv, char **param, t_lst *lst)
 	}
 	while (argv[i]) // parse file
 	{
-		add(lst, getinfo(argv[i]));
+		getfileinfo(&lst, argv[i]);
 		i++;
 	}
 	return (0);
@@ -86,9 +87,9 @@ int controller(char **argv)
 	}
 	ft_putendl(param);
 	ft_putstr("file -> \n");
-	sortit(&name, param)
-	sortname(&name, 1);
-	printname(name->next);
+	//sortit(&name, param);
+	//sortname(&name, 1);
+	print(name->next);
 	return (0);
 }
 int		main(int argc, char **argv)
