@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/13 20:58:04 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/18 16:44:32 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,29 @@ void error_finder(t_lst *lst)
 
 	while (lst->next)
 	{
-		lstat(getpath(path, lst->info.name), &stat);
+		lstat(getpath("``", lst->info.name), &stat);
 		lst = lst->next;
 	}
 }
-void getfileinfo(t_lst	**liste, char *file)
+void getfileinfo(t_lst	**liste, char *file, t_lst **error)
 {
 	t_file *info;
 	struct stat stat;
 
 	info = malloc(sizeof(t_file));
+	info->name = file;
 	if (lstat(file , &stat) == -1)
-		perror("getfileinfo.lstat - >");
+	{
+		add(*error, *info);
+		return ;
+	}
 	info->size = stat.st_size;
 	info->modif = stat.st_mtime;
-	info->name = file;
+	info->perm = getperm(stat.st_mode);
+	info->nblink = stat.st_nlink;
+	info->owner = ufid(stat.st_uid);
+	info->time = get_time(&stat);
+	info->group = gfid(stat.st_gid);
 	add(*liste, *info);
 }
 t_lst	*getinfo(char *s)

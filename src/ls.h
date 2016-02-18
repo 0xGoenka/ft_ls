@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/13 20:13:41 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/18 17:37:19 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void				addfile(t_name *lst, char *name);
 void				printname(t_name *file);
 void				sortname(t_name **lst, int rev);
 void				sortit(t_name **name, char *param);
-void sortbytime(t_lst **lst, int rev);
-void getfileinfo(t_lst	**liste, char *file);
+void 				sortbytime(t_lst **lst, int rev);
+void 				getfileinfo(t_lst	**liste, char *file, t_lst **error);
+void 				sortfunc(char *param, t_lst **lst);
+void 				error_disp(t_lst *error);
 #endif

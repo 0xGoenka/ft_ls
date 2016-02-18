@@ -6,18 +6,17 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/13 20:15:20 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/18 17:49:26 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls.h"
 
 
-int		argvparser(char **argv, char **param, t_lst *lst)
+int		argvparser(char **argv, char **param, t_lst *lst, t_lst *error)
 {
 	int i;
 	int ret;
-	t_lst *list;
 
 	i = 1;
 
@@ -31,7 +30,7 @@ int		argvparser(char **argv, char **param, t_lst *lst)
 	}
 	while (argv[i]) // parse file
 	{
-		getfileinfo(&lst, argv[i]);
+		getfileinfo(&lst, argv[i], &error);
 		i++;
 	}
 	return (0);
@@ -73,23 +72,25 @@ int		validfile(char *s)
 	ft_putstr(": No such file or directory\n");
 	return (0);
 }
+
 int controller(char **argv)
 {
 	char *param;
 	t_lst *name;
+	t_lst *error;
 
+	error = init();
 	name = init();
 	param = NULL;
-	if (argvparser(argv, &param, name) == 1)
+	if (argvparser(argv, &param, name, error) == 1)
 	{
 		ft_strdel(&param);
 		return (0);
 	}
-	ft_putendl(param);
-	ft_putstr("file -> \n");
-	//sortit(&name, param);
-	//sortname(&name, 1);
 	print(name->next);
+	ft_putchar('\n');
+	error_disp(error);
+	sortfunc(param, &name);
 	return (0);
 }
 int		main(int argc, char **argv)

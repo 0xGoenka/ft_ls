@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 12:30:47 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/10 18:14:27 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/18 16:45:20 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	print(t_lst *lst)
 	ft_putchar('\t');
 	print(lst->next);
 }
+
 t_lst	*init(void)
 {
 	t_lst *lst;
