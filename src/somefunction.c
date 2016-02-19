@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/18 16:44:32 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/19 16:03:43 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,27 @@ void error_finder(t_lst *lst)
 		lst = lst->next;
 	}
 }
+void printdir(t_lst *lst , char *param)
+{
+	t_lst *file;
+	t_maxlen *i;
+
+	i = malloc(sizeof(t_maxlen));
+	if (!lst)
+		return ;
+	if (lst->info.perm[0] == 'd')
+	{
+		ft_putstr(ft_strjoin(lst->info.name,":\n"));
+		file = getinfo(lst->info.name);
+		ct_all(file->next, &i);
+		if (ft_strchr(param , 'l'))
+			printlist(file->next, *i, 1, 0);
+		else
+			print(file->next, 0);
+
+	}
+	printdir(lst->next, param);
+}
 void getfileinfo(t_lst	**liste, char *file, t_lst **error)
 {
 	t_file *info;
@@ -100,7 +121,6 @@ t_lst	*getinfo(char *s)
 	info = malloc(sizeof(t_file));
 	if(!(stream = opendir(s)))
 		return (0);
-	perror("opendir");
 		while((dir = readdir(stream)))
 		{
 			if (lstat(getpath(s, dir->d_name), &stat) == -1)

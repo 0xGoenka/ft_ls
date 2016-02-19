@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/18 17:37:19 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/19 15:57:45 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct		s_name
 }					t_name;
 
 void				add(t_lst *liste, t_file info);
-void				printlist(t_lst *lst, t_maxlen i, int a);
+void				printlist(t_lst *lst, t_maxlen i, int a, int skip);
 t_lst				*getinfo(char *s);
 char				*get_time(struct stat *s_stat);
 char				*dec_to_bin(int n);
@@ -78,7 +78,7 @@ int					findmax(t_lst *lst,int i);
 void				space(int i, int max, int pad);
 void				lstdel(t_lst *lst);
 t_lst				*init(void);
-void				print(t_lst *lst);
+void				print(t_lst *lst, int skip);
 int					good(char **argv);
 int					parseargv(char *s, char **param, int *i);
 int					validfile(char *s);
@@ -96,4 +96,6 @@ void 				sortbytime(t_lst **lst, int rev);
 void 				getfileinfo(t_lst	**liste, char *file, t_lst **error);
 void 				sortfunc(char *param, t_lst **lst);
 void 				error_disp(t_lst *error);
+void 				printlext(t_lst *lst, t_maxlen i);
+void 				printdir(t_lst *lst , char *param);
 #endif

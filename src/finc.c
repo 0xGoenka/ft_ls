@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 14:08:12 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/18 17:54:33 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/19 16:06:33 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@ void 	sortfunc(char *param, t_lst **lst)
 
 	i = malloc(sizeof(t_maxlen));
 	ct_all((*lst)->next, &i);
-	rev = (ft_strchr(param, 'r')) ? 1 : -1;
+	rev = (ft_strchr(param, 'r')) ? -1 : 1;
 	a = 1;
 	sortliste(lst, rev);
 	if (ft_strchr(param, 't'))
 		sortbytime(lst, rev);
 	if (ft_strchr(param , 'l'))
-		printlist((*lst)->next, *i, a);
+		printlist((*lst)->next, *i, a, 'd');
 	else
-		print((*lst)->next);
-		putchar('\n');
+		print((*lst)->next, 'd');
 }
 void 	error_disp(t_lst *error)
 {
+	if (!error->next)
+		return ;
 	sortliste(&error, 1);
 	while (error->next)
 	{
@@ -40,6 +41,5 @@ void 	error_disp(t_lst *error)
 		ft_putstr("ft_ls: ");
 		ft_putstr(error->info.name);
 		ft_putstr(": No such file or directory\n");
-
 	}
 }

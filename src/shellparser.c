@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/18 17:49:26 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/19 16:06:31 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,6 @@ int		parseargv(char *s, char **param, int *i)
 	return (1);
 }
 
-int		validfile(char *s)
-{
-	struct stat s_stat;
-
-	if ((lstat(s, &s_stat) >= 0))
-	{
-		return (1);
-	}
-	ft_putstr("ls: ");
-	ft_putstr(s);
-	ft_putstr(": No such file or directory\n");
-	return (0);
-}
-
 int controller(char **argv)
 {
 	char *param;
@@ -87,10 +73,11 @@ int controller(char **argv)
 		ft_strdel(&param);
 		return (0);
 	}
-	print(name->next);
-	ft_putchar('\n');
 	error_disp(error);
 	sortfunc(param, &name);
+	printdir(name->next, param);
+	lstdel(error);
+	lstdel(name);
 	return (0);
 }
 int		main(int argc, char **argv)
