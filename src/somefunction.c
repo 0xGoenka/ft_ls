@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/19 16:03:43 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/19 18:00:20 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,10 @@ void printdir(t_lst *lst , char *param)
 	{
 		ft_putstr(ft_strjoin(lst->info.name,":\n"));
 		file = getinfo(lst->info.name);
+		sortliste(&file, 1);
 		ct_all(file->next, &i);
 		if (ft_strchr(param , 'l'))
-			printlist(file->next, *i, 1, 0);
+			printlist(file->next, *i, 0, 0);
 		else
 			print(file->next, 0);
 

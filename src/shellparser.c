@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/19 16:06:31 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/19 18:29:35 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,11 @@ int controller(char **argv)
 		return (0);
 	}
 	error_disp(error);
-	sortfunc(param, &name);
+	if (countlst(name))
+		sortfunc(param, &name);
+	else
+		getfileinfo(&name, ".", &error);
+
 	printdir(name->next, param);
 	lstdel(error);
 	lstdel(name);

@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 12:30:47 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/19 15:17:59 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/19 18:06:04 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,21 @@ void	printlist(t_lst *lst, t_maxlen i, int a, int skip)
 		return;
 	if (a && lst->info.name[0] == '.')
 		printlist(lst->next, i, a, skip);
-	if (skip == 'f' && lst->info.perm[0] != 'd')
-		printlist(lst->next, i, a, skip);
 		else
 		{
-			if (skip == 'd' && lst->info.perm[0] == 'd')
+			if (skip == 'f' && lst->info.perm[0] != 'd')
 				printlist(lst->next, i, a, skip);
-			else
-			{
-				printlext(lst, i);
-				printlist(lst->next, i, a, skip);
-			}
+				else
+				{
+					if (skip == 'd' && lst->info.perm[0] == 'd')
+						printlist(lst->next, i, a, skip);
+					else
+					{
+						printlext(lst, i);
+						printlist(lst->next, i, a, skip);
+					}
 		}
+	}
 }
 
 void 	printlext(t_lst *lst, t_maxlen i)
@@ -101,4 +104,16 @@ void		lstdel(t_lst *lst)
 		free(tmp);
 		tmp = NULL;
 	}
+}
+int			countlst(t_lst *lst)
+{
+	int i;
+
+	i = 0;
+	while (lst->next)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
 }

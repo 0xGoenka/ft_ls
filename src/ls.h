@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/19 15:57:45 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/19 18:03:48 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,5 @@ void 				sortfunc(char *param, t_lst **lst);
 void 				error_disp(t_lst *error);
 void 				printlext(t_lst *lst, t_maxlen i);
 void 				printdir(t_lst *lst , char *param);
+int					countlst(t_lst *lst);
 #endif
