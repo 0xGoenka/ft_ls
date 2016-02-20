@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/20 16:52:51 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/20 17:42:32 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void 				getfileinfo(t_lst	**liste, char *file, t_lst **error);
 void 				sortfunc(char *param, t_lst **lst, int skip);
 void 				error_disp(t_lst *error);
 void 				printlext(t_lst *lst, t_maxlen i);
-void 				printdir(t_lst *lst , char *param);
+void 				printdir(t_lst *lst , char *param, int nblst);
 int					countlst(t_lst *lst);
 void 				total(t_lst *lst);
 int 				permDenied(char *s);

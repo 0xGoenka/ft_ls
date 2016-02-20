@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/20 16:06:40 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/20 17:42:16 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int controller(char **argv)
 	else
 		getfileinfo(&name, ".", &error);
 	if (!ft_strchr(param, 'R'))
-		printdir(name->next, param);
+		printdir(name->next, param ,countlst(name->next));
 	else
 
 	lstdel(error);

@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/20 16:52:44 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/20 17:43:01 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void error_finder(t_lst *lst)
 		lst = lst->next;
 	}
 }
-void printdir(t_lst *lst , char *param)
+void printdir(t_lst *lst , char *param, int nblst)
 {
 	t_lst *file;
 	t_maxlen *i;
@@ -66,7 +66,7 @@ void printdir(t_lst *lst , char *param)
 		return ;
 	if (lst->info.perm[0] == 'd')
 	{
-		if (countlst(lst) != 0)
+		if (nblst != 0)
 		{
 			ft_putchar('\n');
 			ft_putstr(ft_strjoin(lst->info.name,":\n"));
@@ -80,7 +80,7 @@ void printdir(t_lst *lst , char *param)
 		total(file->next);
 		sortfunc(param, &file, 0);
 	}
-		printdir(lst->next, param);
+		printdir(lst->next, param, nblst);
 }
 void getfileinfo(t_lst	**liste, char *file, t_lst **error)
 {
