@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 12:01:34 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/05 03:32:37 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/20 15:37:28 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,18 @@ void sortliste(t_lst **lst, int rev)
 		}
 		*lst = start;
 	}
+}
+void total(t_lst *lst)
+{
+	size_t i;
+
+	i = 0;
+	while (lst)
+	{
+		i = i + lst->info.block;
+		lst = lst->next;
+	}
+	ft_putstr("total ");
+	ft_putnbr((int)i);
+	ft_putchar('\n');
 }
