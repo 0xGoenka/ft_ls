@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/19 18:03:48 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/20 16:52:51 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct		s_file
 	char			*time;
 	struct s_file 	*next;
 	int				modif;
+	int				block;
 }					t_file;
 
 typedef struct		s_lst
@@ -78,7 +79,7 @@ int					findmax(t_lst *lst,int i);
 void				space(int i, int max, int pad);
 void				lstdel(t_lst *lst);
 t_lst				*init(void);
-void				print(t_lst *lst, int skip);
+void				print(t_lst *lst, int skip, int a);
 int					good(char **argv);
 int					parseargv(char *s, char **param, int *i);
 int					validfile(char *s);
@@ -94,9 +95,11 @@ void				sortname(t_name **lst, int rev);
 void				sortit(t_name **name, char *param);
 void 				sortbytime(t_lst **lst, int rev);
 void 				getfileinfo(t_lst	**liste, char *file, t_lst **error);
-void 				sortfunc(char *param, t_lst **lst);
+void 				sortfunc(char *param, t_lst **lst, int skip);
 void 				error_disp(t_lst *error);
 void 				printlext(t_lst *lst, t_maxlen i);
 void 				printdir(t_lst *lst , char *param);
 int					countlst(t_lst *lst);
+void 				total(t_lst *lst);
+int 				permDenied(char *s);
 #endif

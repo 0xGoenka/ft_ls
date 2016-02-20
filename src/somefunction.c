@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/19 18:00:20 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/20 16:52:44 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,11 @@
 
 char	*getpath(char *path, char *folder)
 {
-	size_t len;
-	size_t len2;
-	size_t i;
 	char *s;
 
-	len = ft_strlen(path);
-	len2 = ft_strlen(folder);
-	i = 0;
-	if(!(s = (char *)malloc(sizeof(char) * (len + len2 + 2))))
-		perror("malloc esteb : ");
-	while (i < len)
-		s[i] = path[i], i++;
-	s[i] = '/', i++;
-	while (i < len + len2 + 1)
-		s[i] = folder[i - len -1], i++;
-	s[i] = '\0';
+	s = ft_strjoin(path,"/");
+	s = ft_strjoin(s,folder);
+
 	return (s);
 }
 
@@ -77,17 +66,21 @@ void printdir(t_lst *lst , char *param)
 		return ;
 	if (lst->info.perm[0] == 'd')
 	{
-		ft_putstr(ft_strjoin(lst->info.name,":\n"));
-		file = getinfo(lst->info.name);
-		sortliste(&file, 1);
-		ct_all(file->next, &i);
-		if (ft_strchr(param , 'l'))
-			printlist(file->next, *i, 0, 0);
-		else
-			print(file->next, 0);
+		if (countlst(lst) != 0)
+		{
+			ft_putchar('\n');
+			ft_putstr(ft_strjoin(lst->info.name,":\n"));
 
+		}
+		if (!(file = getinfo(lst->info.name)))
+		{
+			permDenied(lst->info.name);
+			return ;
+		}
+		total(file->next);
+		sortfunc(param, &file, 0);
 	}
-	printdir(lst->next, param);
+		printdir(lst->next, param);
 }
 void getfileinfo(t_lst	**liste, char *file, t_lst **error)
 {
@@ -108,6 +101,7 @@ void getfileinfo(t_lst	**liste, char *file, t_lst **error)
 	info->owner = ufid(stat.st_uid);
 	info->time = get_time(&stat);
 	info->group = gfid(stat.st_gid);
+	info->block = stat.st_blocks;
 	add(*liste, *info);
 }
 t_lst	*getinfo(char *s)
@@ -126,6 +120,7 @@ t_lst	*getinfo(char *s)
 		{
 			if (lstat(getpath(s, dir->d_name), &stat) == -1)
 				perror("lstat error : ");
+
 			info->name = dir->d_name;
 			info->perm = getperm(stat.st_mode);
 			info->nblink = stat.st_nlink;
@@ -134,6 +129,7 @@ t_lst	*getinfo(char *s)
 			info->size = stat.st_size;
 			info->time = get_time(&stat);
 			info->modif = stat.st_mtime;
+			info->block = stat.st_blocks;
 			add(liste,	 *info);
 		}
 		closedir(stream);

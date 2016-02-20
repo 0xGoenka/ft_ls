@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/08 02:34:11 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/11 16:37:37 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/20 12:54:21 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		printname(t_name *file)
 		file = file->next;
 	}
 }
-void sortname(t_name **lst, int rev)
+/*void sortname(t_name **lst, int rev)
 {
 	t_name *start;
 	t_name *ptr;
@@ -66,13 +66,14 @@ void sortname(t_name **lst, int rev)
 		}
 		*lst = start;
 	}
-}
+}*/
 void sortbytime(t_lst **lst, int rev)
 {
 	t_lst *start;
 	t_lst *ptr;
 	int i;
 
+	sortliste(lst, -1);
 	start = *lst;
 	i = 1;
 	rev = -rev;

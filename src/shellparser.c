@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/19 18:29:35 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/20 16:06:40 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int		parseargv(char *s, char **param, int *i)
 	{
 		if (*s != 'R' && *s != 'r' && *s != 'l' && *s != 'a' && *s != 't')
 		{
-			ft_putstr(ft_strjoin("ls: illegal option -- ", s));
-			ft_putstr("\nusage: ls [-Raltr] [file ...]\n");
+			ft_putstr_fd(ft_strjoin("ls: illegal option -- ", s), 2);
+			ft_putstr_fd("\nusage: ls [-Raltr] [file ...]\n", 2);
 			return (-1);
 		}
 		s++;
@@ -62,9 +62,11 @@ int		parseargv(char *s, char **param, int *i)
 int controller(char **argv)
 {
 	char *param;
-	t_lst *name;
+	t_lst *name; // argument file
 	t_lst *error;
+	char *help;
 
+	help = ft_strjoin(param, "a");
 	error = init();
 	name = init();
 	param = NULL;
@@ -74,12 +76,14 @@ int controller(char **argv)
 		return (0);
 	}
 	error_disp(error);
-	if (countlst(name))
-		sortfunc(param, &name);
+	if (countlst(name) || countlst(error))
+		sortfunc(help, &name, 'd');
 	else
 		getfileinfo(&name, ".", &error);
+	if (!ft_strchr(param, 'R'))
+		printdir(name->next, param);
+	else
 
-	printdir(name->next, param);
 	lstdel(error);
 	lstdel(name);
 	return (0);

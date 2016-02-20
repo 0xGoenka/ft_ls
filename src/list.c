@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 12:30:47 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/19 18:06:04 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/20 15:43:57 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,32 @@ void 	printlext(t_lst *lst, t_maxlen i)
 	ft_putnbr(lst->info.size);
 	ft_putstr(" ");
 	ft_putstr(lst->info.time);
-	ft_putstr("  ");
+	ft_putstr(" ");
 	ft_putstr(lst->info.name);
 	ft_putchar('\n');
 }
-void	print(t_lst *lst, int skip)
+void	print(t_lst *lst, int skip, int a)
 {
 	if (!lst)
 		return;
-	if (skip == 'f' && lst->info.perm[0] != 'd')
-		print(lst->next, skip);
+	if (a && lst->info.name[0] == '.')
+		print(lst->next, skip, a);
 	else
 	{
-		if (skip == 'd' && lst->info.perm[0] == 'd')
-			print(lst->next, skip);
-		else
-		{
-			ft_putstr(lst->info.name);
-			ft_putchar('\n');
-			print(lst->next, skip);
+		if (skip == 'f' && lst->info.perm[0] != 'd')
+			print(lst->next, skip, a);
+			else
+			{
+				if (skip == 'd' && lst->info.perm[0] == 'd')
+					print(lst->next, skip, a);
+				else
+				{
+					ft_putstr(lst->info.name);
+					ft_putchar('\n');
+					print(lst->next, skip, a);
+				}
+			}
 		}
-	}
 }
 
 t_lst	*init(void)
