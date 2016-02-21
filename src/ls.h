@@ -6,9 +6,10 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/20 17:42:32 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/21 11:54:42 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef LS_H
 # define LS_H
@@ -102,4 +103,6 @@ void 				printdir(t_lst *lst , char *param, int nblst);
 int					countlst(t_lst *lst);
 void 				total(t_lst *lst);
 int 				permDenied(char *s);
+void 				printdirrec(t_lst *lst , char *param, int nblst);
+int					recursive(char *s);
 #endif
