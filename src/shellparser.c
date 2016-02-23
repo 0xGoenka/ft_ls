@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/21 17:30:37 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/22 11:50:38 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int		argvparser(char **argv, char **param, t_lst *lst, t_lst *error)
 
 	while (argv[i]) // parse parameter
 	{
+		if (argv[i][0] == '-' && ft_strlen(argv[1]) == 1)
+			break ;
 		if ((ret = parseargv(argv[i], param, &i)) == -1)
 			return (1);
 		if (ret == 0)
@@ -76,14 +78,16 @@ int controller(char **argv)
 		return (0);
 	}
 	error_disp(error);
-	if (countlst(name) || countlst(error))
+	if (countlst(name))
 		sortfunc(help, &name, 'd');
-	else
+	else if (countlst(error) ==  0) {
 		getfileinfo(&name, ".", &error);
-	if (!ft_strchr(param, 'R'))
-		printdir(name->next, param ,countlst(name->next));
-	else
-		ft_putchar('a');
+	}
+
+	if (!ft_strchr(param, 'R') && countlst(name))
+		printdir(name->next, param ,countlst(name) + countlst(error));
+	if (ft_strchr(param, 'R'))
+		rec_control(name->next, param);
 
 	lstdel(error);
 	lstdel(name);

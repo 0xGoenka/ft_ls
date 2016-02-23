@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 11:21:42 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/21 17:57:03 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/23 19:52:11 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,52 +16,43 @@ int		rec_control(t_lst *lst, char *param)
 {
 	while (lst)
 	{
-		rec_main(lst->info.name, char *param, lst->info);
-		lst = lst->next;
+		rec_main(param, lst->info.name);
+		if (lst->next)
+			lst = lst->next;
+		else
+			return (0);
 	}
 	return (0);
 }
-int	rec_main(t_lst *lst, char *param, t_file info)
+int	rec_main(char *param, char *path)
 {
 	t_lst *file;
 	t_lst *start;
+	char *s;
 
-	printdir(getinfo(folder));
-	if (info.perm[0] == 'd' && ft_strcmp(lst->info.name, ".") != 0 &&
-	ft_strcmp(lst->info.name, "..") != 0)
+	file = NULL;
+	if (!(file = getinfo(path)))
 	{
-		rec_main(getpath());
+		return (0);
 	}
+	else
+	{
+		start = file;
+		printf("\n%s:\n", path);
+		total(start->next);
+		sortfunc(param, &start, 0);
 
+	}
+	while (file->next)
+	{
+			file = file->next;
+		if (file->info.perm[0] == 'd'&& ft_strcmp(file->info.name, ".") != 0 &&
+			ft_strcmp(file->info.name, "..") != 0)
+		{
+
+			rec_main(param, getpath(path,file->info.name));
+
+		}
+	}
 	return (0);
-}
-	void printdirrec(t_lst *lst , char *param, int nblst)
-{
-	t_lst *file;
-	t_maxlen *i;
-
-	i = malloc(sizeof(t_maxlen));
-	if (!lst)
-		return ;
-	if (lst->info.perm[0] == 'd' && ft_strcmp(lst->info.name, ".") != 0 &&
-	ft_strcmp(lst->info.name, "..") != 0)
-	{
-		if (nblst != 0)
-		{
-			ft_putchar('\n');
-			ft_putstr(ft_strjoin(lst->info.name,":\n"));
-
-		}
-		if (!(file = getinfo(lst->info.name)))
-		{
-			permDenied(lst->info.name);
-		}
-		else
-		{
-			total(file->next);
-
-		}
-		recursive(lst->info.name);
-	}
-		printdirrec(lst->next, param, countlst(file->next));
 }

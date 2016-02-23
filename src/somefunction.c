@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/20 17:43:01 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/23 19:31:54 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 char	*getpath(char *path, char *folder)
 {
 	char *s;
-
+	//if (path[ft_strlen(path) - 1] != '/')
 	s = ft_strjoin(path,"/");
+	//else
+	//s = path;
 	s = ft_strjoin(s,folder);
-
 	return (s);
 }
 
@@ -66,7 +67,7 @@ void printdir(t_lst *lst , char *param, int nblst)
 		return ;
 	if (lst->info.perm[0] == 'd')
 	{
-		if (nblst != 0)
+		if (nblst > 1)
 		{
 			ft_putchar('\n');
 			ft_putstr(ft_strjoin(lst->info.name,":\n"));
@@ -115,11 +116,21 @@ t_lst	*getinfo(char *s)
 	liste = init();
 	info = malloc(sizeof(t_file));
 	if(!(stream = opendir(s)))
+	{
+		printf("%s\n", s);
 		return (0);
+	}
 		while((dir = readdir(stream)))
 		{
+			//printf("get info path to lstat -> %s\n",getpath(s, dir->d_name));
+			//perror("readdir l121 somefinc");
 			if (lstat(getpath(s, dir->d_name), &stat) == -1)
-				perror("lstat error : ");
+				{
+					perror("lstat error : ");
+					return (0);
+				}
+			else
+			{
 
 			info->name = dir->d_name;
 			info->perm = getperm(stat.st_mode);
@@ -130,9 +141,10 @@ t_lst	*getinfo(char *s)
 			info->time = get_time(&stat);
 			info->modif = stat.st_mtime;
 			info->block = stat.st_blocks;
-			add(liste,	 *info);
+			add(liste, *info);
 		}
-		closedir(stream);
+		}
+	closedir(stream);
 	return (liste);
 }
 void	ct_all(t_lst *lst, t_maxlen **i)
