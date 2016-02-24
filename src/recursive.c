@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 11:21:42 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/23 19:52:11 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/24 20:23:35 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	rec_main(char *param, char *path)
 	{
 		start = file;
 		printf("\n%s:\n", path);
-		total(start->next);
+		total(start->next, param);
 		sortfunc(param, &start, 0);
 
 	}

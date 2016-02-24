@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/06 03:34:46 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/22 11:50:38 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/24 17:39:34 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int controller(char **argv)
 	t_lst *error;
 	char *help;
 
+	name = NULL;
 	help = ft_strjoin(param, "a");
 	error = init();
 	name = init();
@@ -83,7 +84,8 @@ int controller(char **argv)
 	else if (countlst(error) ==  0) {
 		getfileinfo(&name, ".", &error);
 	}
-
+	if (!param)
+		param = ft_strdup("0");
 	if (!ft_strchr(param, 'R') && countlst(name))
 		printdir(name->next, param ,countlst(name) + countlst(error));
 	if (ft_strchr(param, 'R'))

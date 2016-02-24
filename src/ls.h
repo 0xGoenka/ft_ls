@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/24 13:31:08 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/24 20:23:02 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void 				error_disp(t_lst *error);
 void 				printlext(t_lst *lst, t_maxlen i);
 void 				printdir(t_lst *lst , char *param, int nblst);
 int					countlst(t_lst *lst);
-void 				total(t_lst *lst);
+void 				total(t_lst *lst, char *param);
 int 				permDenied(char *s);
 void 				printdirrec(t_lst *lst , char *param, int nblst);
 int					recursive(char *s);

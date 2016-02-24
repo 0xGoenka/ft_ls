@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/23 19:31:54 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/02/24 20:12:41 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 char	*getpath(char *path, char *folder)
 {
 	char *s;
-	//if (path[ft_strlen(path) - 1] != '/')
+	if (path[ft_strlen(path) - 1] != '/')
 	s = ft_strjoin(path,"/");
-	//else
-	//s = path;
+	else
+	s = path;
 	s = ft_strjoin(s,folder);
 	return (s);
 }
@@ -27,7 +27,7 @@ char	*getperm(mode_t mode)
 {
 	char *str;
 
-	str = (char *)malloc(sizeof(char) * 11);
+	str = ft_strnew(11);
 	str[0] = ((mode & S_IFMT) == S_IFLNK) ? 'l': str[0];
 	str[0] = ((mode & S_IFMT) == S_IFREG) ? '-': str[0];
 	str[0] = ((mode & S_IFMT) == S_IFDIR) ? 'd': str[0];
@@ -44,7 +44,10 @@ char	*getperm(mode_t mode)
 	str[1] = (mode &S_IRUSR) ? 'r' : '-';
 	str[2] = (mode &S_IWUSR) ? 'w' : '-';
 	str[3] = (mode &S_IXUSR) ? 'x' : '-';
-	str[10] = '\0';
+	str[3] = (mode & S_ISUID)? (mode & 0100 ? 's' : 'S') : str[3];
+	str[6] = (mode & S_ISUID)? (mode & 0100 ? 's' : 'S') : str[6];
+	str[9] = (mode & S_ISUID)? (mode & 0100 ? 't' : 'T') : str[9];
+	str[10] = '@';
 	return (str);
 }
 void error_finder(t_lst *lst)
@@ -53,36 +56,11 @@ void error_finder(t_lst *lst)
 
 	while (lst->next)
 	{
-		lstat(getpath("``", lst->info.name), &stat);
+		lstat(lst->info.name, &stat);
 		lst = lst->next;
 	}
 }
-void printdir(t_lst *lst , char *param, int nblst)
-{
-	t_lst *file;
-	t_maxlen *i;
 
-	i = malloc(sizeof(t_maxlen));
-	if (!lst)
-		return ;
-	if (lst->info.perm[0] == 'd')
-	{
-		if (nblst > 1)
-		{
-			ft_putchar('\n');
-			ft_putstr(ft_strjoin(lst->info.name,":\n"));
-
-		}
-		if (!(file = getinfo(lst->info.name)))
-		{
-			permDenied(lst->info.name);
-			return ;
-		}
-		total(file->next);
-		sortfunc(param, &file, 0);
-	}
-		printdir(lst->next, param, nblst);
-}
 void getfileinfo(t_lst	**liste, char *file, t_lst **error)
 {
 	t_file *info;
@@ -114,7 +92,6 @@ t_lst	*getinfo(char *s)
 	t_lst *liste;
 
 	liste = init();
-	info = malloc(sizeof(t_file));
 	if(!(stream = opendir(s)))
 	{
 		printf("%s\n", s);
@@ -122,8 +99,7 @@ t_lst	*getinfo(char *s)
 	}
 		while((dir = readdir(stream)))
 		{
-			//printf("get info path to lstat -> %s\n",getpath(s, dir->d_name));
-			//perror("readdir l121 somefinc");
+			info = malloc(sizeof(t_file));
 			if (lstat(getpath(s, dir->d_name), &stat) == -1)
 				{
 					perror("lstat error : ");
@@ -132,7 +108,7 @@ t_lst	*getinfo(char *s)
 			else
 			{
 
-			info->name = dir->d_name;
+			info->name = ft_strdup(dir->d_name);
 			info->perm = getperm(stat.st_mode);
 			info->nblink = stat.st_nlink;
 			info->owner = ufid(stat.st_uid);
@@ -142,6 +118,8 @@ t_lst	*getinfo(char *s)
 			info->modif = stat.st_mtime;
 			info->block = stat.st_blocks;
 			add(liste, *info);
+			free(info);
+			info = NULL;
 		}
 		}
 	closedir(stream);
