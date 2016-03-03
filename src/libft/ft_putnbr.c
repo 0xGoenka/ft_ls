@@ -3,17 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 18:06:45 by eleclet           #+#    #+#             */
-/*   Updated: 2015/12/08 11:22:49 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/03/03 17:03:52 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_putnbr(int c)
+int		ft_putnbr(int n)
 {
-	ft_putstr(ft_itoa(c));
+	char	tab[32];
+	int		i;
+
+	i = 0;
+	if (n == 0)
+		ft_putchar('0');
+	while (n)
+	{
+		tab[i] = n % 10 + '0';
+		n = n / 10;
+		i++;
+	}
+	tab[i] = '\0';
+	i--;
+	while (i >= 0)
+	{
+		write(1, &tab[i], 1);
+		i--;
+	}
 	return (0);
 }

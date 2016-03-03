@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:20:05 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/24 20:12:41 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/03/03 17:14:48 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 char	*getpath(char *path, char *folder)
 {
-	char *s;
-	if (path[ft_strlen(path) - 1] != '/')
-	s = ft_strjoin(path,"/");
+	if (path)
+	{
+		return (ft_strjoin(ft_strjoin(path, "/"), folder));
+	}
 	else
-	s = path;
-	s = ft_strjoin(s,folder);
-	return (s);
+		return (folder);
 }
 
 char	*getperm(mode_t mode)
@@ -28,107 +27,97 @@ char	*getperm(mode_t mode)
 	char *str;
 
 	str = ft_strnew(11);
-	str[0] = ((mode & S_IFMT) == S_IFLNK) ? 'l': str[0];
-	str[0] = ((mode & S_IFMT) == S_IFREG) ? '-': str[0];
-	str[0] = ((mode & S_IFMT) == S_IFDIR) ? 'd': str[0];
-	str[0] = ((mode & S_IFMT) == S_IFBLK) ? 'b': str[0];
-	str[0] = ((mode & S_IFMT) == S_IFSOCK)? 's': str[0];
-	str[0] = ((mode & S_IFMT) == S_IFIFO)? 'p':  str[0];
-	str[0] = ((mode & S_IFMT) == S_IFCHR)? 'c':  str[0];
-	str[7] = (mode &S_IROTH) ? 'r' : '-';
-	str[8] = (mode &S_IWOTH) ? 'w' : '-';
-	str[9] = (mode &S_IXOTH) ? 'x' : '-';
-	str[4] = (mode &S_IRGRP) ? 'r' : '-';
-	str[5] = (mode &S_IWGRP) ? 'w' : '-';
-	str[6] = (mode &S_IXGRP) ? 'x' : '-';
-	str[1] = (mode &S_IRUSR) ? 'r' : '-';
-	str[2] = (mode &S_IWUSR) ? 'w' : '-';
-	str[3] = (mode &S_IXUSR) ? 'x' : '-';
-	str[3] = (mode & S_ISUID)? (mode & 0100 ? 's' : 'S') : str[3];
-	str[6] = (mode & S_ISUID)? (mode & 0100 ? 's' : 'S') : str[6];
-	str[9] = (mode & S_ISUID)? (mode & 0100 ? 't' : 'T') : str[9];
-	str[10] = '@';
+	str[0] = ((mode & S_IFMT) == S_IFLNK) ? 'l' : str[0];
+	str[0] = ((mode & S_IFMT) == S_IFREG) ? '-' : str[0];
+	str[0] = ((mode & S_IFMT) == S_IFDIR) ? 'd' : str[0];
+	str[0] = ((mode & S_IFMT) == S_IFBLK) ? 'b' : str[0];
+	str[0] = ((mode & S_IFMT) == S_IFSOCK) ? 's' : str[0];
+	str[0] = ((mode & S_IFMT) == S_IFIFO) ? 'p' : str[0];
+	str[0] = ((mode & S_IFMT) == S_IFCHR) ? 'c' : str[0];
+	str[7] = (mode & S_IROTH) ? 'r' : '-';
+	str[8] = (mode & S_IWOTH) ? 'w' : '-';
+	str[9] = (mode & S_IXOTH) ? 'x' : '-';
+	str[4] = (mode & S_IRGRP) ? 'r' : '-';
+	str[5] = (mode & S_IWGRP) ? 'w' : '-';
+	str[6] = (mode & S_IXGRP) ? 'x' : '-';
+	str[1] = (mode & S_IRUSR) ? 'r' : '-';
+	str[2] = (mode & S_IWUSR) ? 'w' : '-';
+	str[3] = (mode & S_IXUSR) ? 'x' : '-';
+	str[3] = (mode & S_ISUID) ? (mode & 0100 ? 's' : 'S') : str[3];
+	str[6] = (mode & S_ISGID) ? (mode & 0100 ? 's' : 'S') : str[6];
+	str[9] = (mode & S_ISVTX) ? (mode & 0100 ? 't' : 'T') : str[9];
+	str[10] = ' ';
 	return (str);
 }
-void error_finder(t_lst *lst)
-{
-	struct stat stat;
 
-	while (lst->next)
+void	getfileinfo(t_lst **liste, char *file, t_lst **error, char *param)
+{
+	t_file		info;
+	struct stat statd;
+
+	info.name = file;
+	if (ft_strchr(param, 'l'))
 	{
-		lstat(lst->info.name, &stat);
-		lst = lst->next;
+		if (lstat(file, &statd) == -1)
+		{
+			add(*error, info);
+			return ;
+		}
 	}
+	else
+	{
+		if (stat(file, &statd) == -1)
+		{
+			add(*error, info);
+			return ;
+		}
+	}
+	info = fillinfo(statd, file);
+	add(*liste, info);
 }
 
-void getfileinfo(t_lst	**liste, char *file, t_lst **error)
-{
-	t_file *info;
-	struct stat stat;
-
-	info = malloc(sizeof(t_file));
-	info->name = file;
-	if (lstat(file , &stat) == -1)
-	{
-		add(*error, *info);
-		return ;
-	}
-	info->size = stat.st_size;
-	info->modif = stat.st_mtime;
-	info->perm = getperm(stat.st_mode);
-	info->nblink = stat.st_nlink;
-	info->owner = ufid(stat.st_uid);
-	info->time = get_time(&stat);
-	info->group = gfid(stat.st_gid);
-	info->block = stat.st_blocks;
-	add(*liste, *info);
-}
 t_lst	*getinfo(char *s)
 {
-	DIR *stream;
-	struct dirent *dir;
-	struct stat stat;
-	t_file	*info;
-	t_lst *liste;
+	DIR				*stream;
+	struct dirent	*dir;
+	struct stat		statt;
+	t_file			info;
+	t_lst			*liste;
 
 	liste = init();
-	if(!(stream = opendir(s)))
-	{
-		printf("%s\n", s);
+	if (!(stream = opendir(s)))
 		return (0);
-	}
-		while((dir = readdir(stream)))
+	while ((dir = readdir(stream)))
+	{
+		if (lstat(getpath(s, dir->d_name), &statt) == -1)
+			return (0);
+		else
 		{
-			info = malloc(sizeof(t_file));
-			if (lstat(getpath(s, dir->d_name), &stat) == -1)
-				{
-					perror("lstat error : ");
-					return (0);
-				}
-			else
-			{
-
-			info->name = ft_strdup(dir->d_name);
-			info->perm = getperm(stat.st_mode);
-			info->nblink = stat.st_nlink;
-			info->owner = ufid(stat.st_uid);
-			info->group = gfid(stat.st_gid);
-			info->size = stat.st_size;
-			info->time = get_time(&stat);
-			info->modif = stat.st_mtime;
-			info->block = stat.st_blocks;
-			add(liste, *info);
-			free(info);
-			info = NULL;
+			info = fillinfo(statt, dir->d_name);
+			add(liste, info);
 		}
-		}
+	}
 	closedir(stream);
 	return (liste);
 }
-void	ct_all(t_lst *lst, t_maxlen **i)
+
+t_file	fillinfo(struct stat stat, char *name)
 {
-	(*i)->a = findmax(lst, 1);
-	(*i)->b = findmax(lst, 0);
-	(*i)->c = findmaxe(lst, 1);
-	(*i)->d = findmaxe(lst, 0);
+	t_file info;
+
+	info.name = ft_strdup(name);
+	info.perm = getperm(stat.st_mode);
+	info.nblink = stat.st_nlink;
+	info.owner = ufid(stat.st_uid);
+	info.group = gfid(stat.st_gid);
+	if (info.perm[0] == 'c' || info.perm[0] == 'b')
+	{
+		info.size = pad(3, major(stat.st_rdev), minor(stat.st_rdev));
+	}
+	else
+		info.size = ft_itoa(stat.st_size);
+	info.time = get_time(&stat);
+	info.modif = stat.st_mtime;
+	info.block = stat.st_blocks;
+	return (info);
 }

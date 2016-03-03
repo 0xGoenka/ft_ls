@@ -6,7 +6,7 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 15:51:29 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/24 19:14:40 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/03/03 17:14:51 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,29 @@
 
 char	*get_time(struct stat *s_stat)
 {
-	char *s;
-
-	s = ft_strdup(ctime(&s_stat->st_mtime));
-	s = ft_strsub(s, 4, ft_strlen(s) - 13);
-	return (s);
+	return (ft_strsub(ctime(&s_stat->st_mtime), 4, 12));
 }
 
-char	*ufid(uid_t uid) // user from id
+char	*ufid(uid_t uid)
 {
 	struct passwd *user;
 
 	user = getpwuid(uid);
-	return (user->pw_name);
+	if (user)
+		return (ft_strdup(user->pw_name));
+	else
+		return (ft_itoa(uid));
 }
 
-char	*gfid(gid_t gid) // group from	id
+char	*gfid(gid_t gid)
 {
 	struct group *g;
 
 	g = getgrgid(gid);
-	return (g->gr_name);
+	if (g)
+		return (ft_strdup(g->gr_name));
+	else
+		return (ft_strdup("wheel"));
 }
 
 int		findmax(t_lst *lst, int i)
@@ -55,8 +57,8 @@ int		findmax(t_lst *lst, int i)
 	{
 		while (lst)
 		{
-			if (ret < nu_len(lst->info.size, 10))
-				ret = nu_len(lst->info.size, 10);
+			if (ret < (int)ft_strlen(lst->info.size))
+				ret = ft_strlen(lst->info.size);
 			lst = lst->next;
 		}
 	}

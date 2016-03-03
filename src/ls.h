@@ -6,24 +6,22 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:25:44 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/24 20:23:02 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/03/03 17:29:22 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef LS_H
 # define LS_H
-
-#include <dirent.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <pwd.h>
-#include "libft/libft.h"
-#include <grp.h>
+# include <dirent.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <time.h>
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <pwd.h>
+# include "libft/libft.h"
+# include <grp.h>
 
 typedef struct		s_file
 {
@@ -32,7 +30,7 @@ typedef struct		s_file
 	int				nblink;
 	char			*owner;
 	char			*group;
-	long long int	size;
+	char			*size;
 	char			*time;
 	struct s_file 	*next;
 	int				modif;
@@ -44,6 +42,7 @@ typedef struct		s_lst
 	t_file 			info;
 	struct s_lst 	*next;
 }					t_lst;
+
 typedef struct 		s_argv
 {
 	int 			recursive;
@@ -53,19 +52,23 @@ typedef struct 		s_argv
 	int				r;
 	char 			*file;
 }					t_argv;
+
 typedef struct		s_maxlen
 {
 	int				a;
 	int				b;
 	int				c;
 	int				d;
+	char			*path;
 }					t_maxlen;
+
 typedef struct		s_name
 {
 	char			*name;
 	struct s_name	*next;
 }					t_name;
 
+void 				printlink(char *name, char *path);
 void				add(t_lst *liste, t_file info);
 void				printlist(t_lst *lst, t_maxlen i, int a, int skip);
 t_lst				*getinfo(char *s);
@@ -80,13 +83,13 @@ int					findmax(t_lst *lst,int i);
 void				space(int i, int max, int pad);
 void				lstdel(t_lst *lst);
 t_lst				*init(void);
-void				print(t_lst *lst, int skip, int a);
+void				print(t_lst *lst, int skip, int a, char *path);
 int					good(char **argv);
 int					parseargv(char *s, char **param, int *i);
 int					validfile(char *s);
 char				*getargv(int argc, char **argv);
 int					findmaxe(t_lst *lst, int i);
-void				ct_all(t_lst *lst, t_maxlen **i);
+void				ct_all(t_lst *lst, t_maxlen **i, char *path);
 void 				sortliste(t_lst **lst, int rev);
 int					parsefile(char *s, char **file);
 t_name				*initfile(void);
@@ -95,18 +98,20 @@ void				printname(t_name *file);
 void				sortname(t_name **lst, int rev);
 void				sortit(t_name **name, char *param);
 void 				sortbytime(t_lst **lst, int rev);
-void 				getfileinfo(t_lst	**liste, char *file, t_lst **error);
-void 				sortfunc(char *param, t_lst **lst, int skip);
+void 				getfileinfo(t_lst	**liste, char *file, t_lst **error, char *param);
+void 				sortfunc(char *param, t_lst **lst, int skip, char *path);
 void 				error_disp(t_lst *error);
 void 				printlext(t_lst *lst, t_maxlen i);
 void 				printdir(t_lst *lst , char *param, int nblst);
 int					countlst(t_lst *lst);
 void 				total(t_lst *lst, char *param);
-int 				permDenied(char *s);
+int 				permdenied(char *s);
 void 				printdirrec(t_lst *lst , char *param, int nblst);
 int					recursive(char *s);
 int					rec_main(char *param, char *path);
 int					rec_control(t_lst *lst, char *param);
 int 				isdir(t_lst **lst);
-int					taunt(t_lst *name, t_lst *error, char *param);
+t_file				fillinfo(struct stat stat, char *name);
+char				*pad(int max, int major, int minor);
+
 #endif

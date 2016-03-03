@@ -6,7 +6,7 @@
 /*   By: eleclet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 18:50:27 by eleclet           #+#    #+#             */
-/*   Updated: 2016/01/07 14:31:11 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/03/03 17:02:30 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ char	*ft_strtrim(char const *s)
 	if (!(s2 = (char *)malloc(sizeof(char) * (end + 10))))
 		return (0);
 	ft_bzero(s2, end + 10);
+	start--;
 	while (start <= end)
-		s2[i++] = s[start], start++;
+		s2[i++] = s[start++];
 	s2[i] = '\0';
 	return (s2);
 }

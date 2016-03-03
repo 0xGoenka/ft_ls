@@ -6,13 +6,13 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 20:03:31 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/24 20:08:13 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/03/03 17:13:33 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls.h"
 
-void	sortfunc(char *param, t_lst **lst, int skip)
+void	sortfunc(char *param, t_lst **lst, int skip, char *path)
 {
 	int			rev;
 	int			a;
@@ -21,16 +21,20 @@ void	sortfunc(char *param, t_lst **lst, int skip)
 	if (!countlst(*lst))
 		return ;
 	i = malloc(sizeof(t_maxlen));
-	ct_all((*lst)->next, &i);
+	ct_all((*lst)->next, &i, path);
 	rev = (ft_strchr(param, 'r')) ? -1 : 1;
 	a = (ft_strchr(param, 'a')) ? 0 : 1;
 	sortliste(lst, rev);
 	if (ft_strchr(param, 't'))
 		sortbytime(lst, rev);
 	if (ft_strchr(param, 'l'))
+	{
+		if (skip != 'd')
+			total((*lst)->next, param);
 		printlist((*lst)->next, *i, a, skip);
+	}
 	else
-		print((*lst)->next, skip, a);
+		print((*lst)->next, skip, a, path);
 }
 
 void	sortliste(t_lst **lst, int rev)
@@ -61,11 +65,11 @@ void	sortliste(t_lst **lst, int rev)
 	}
 }
 
-void sortbytime(t_lst **lst, int rev)
+void	sortbytime(t_lst **lst, int rev)
 {
-	t_lst *start;
-	t_lst *ptr;
-	int i;
+	t_lst	*start;
+	t_lst	*ptr;
+	int		i;
 
 	sortliste(lst, -1);
 	start = *lst;

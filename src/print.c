@@ -6,18 +6,16 @@
 /*   By: eleclet <eleclet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 19:53:45 by eleclet           #+#    #+#             */
-/*   Updated: 2016/02/24 20:38:58 by eleclet          ###   ########.fr       */
+/*   Updated: 2016/03/03 17:22:45 by eleclet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls.h"
 
-void printdir(t_lst *lst , char *param, int nblst)
+void	printdir(t_lst *lst, char *param, int nblst)
 {
 	t_lst *file;
-	t_maxlen *i;
 
-	i = malloc(sizeof(t_maxlen));
 	if (!lst)
 		return ;
 	if (lst->info.perm[0] == 'd')
@@ -25,18 +23,16 @@ void printdir(t_lst *lst , char *param, int nblst)
 		if (nblst > 1)
 		{
 			ft_putchar('\n');
-			ft_putstr(ft_strjoin(lst->info.name,":\n"));
-
+			ft_putstr(ft_strjoin(lst->info.name, ":\n"));
 		}
 		if (!(file = getinfo(lst->info.name)))
 		{
-			permDenied(lst->info.name);
+			permdenied(lst->info.name);
 			return ;
 		}
-		total(file->next, param);
-		sortfunc(param, &file, 0);
+		sortfunc(param, &file, 0, lst->info.name);
 	}
-		printdir(lst->next, param, nblst);
+	printdir(lst->next, param, nblst);
 }
 
 void	printlist(t_lst *lst, t_maxlen i, int a, int skip)
@@ -72,35 +68,49 @@ void	printlext(t_lst *lst, t_maxlen i)
 	space(ft_strlen(lst->info.owner), i.c, 1);
 	space(ft_strlen(lst->info.group), i.d, 1);
 	ft_putstr(lst->info.group);
-	space(nu_len(lst->info.size, 10), i.b, 2);
-	ft_putnbr(lst->info.size);
+	space(ft_strlen(lst->info.size), i.b, 2);
+	ft_putstr(lst->info.size);
 	ft_putstr(" ");
 	ft_putstr(lst->info.time);
 	ft_putstr(" ");
 	ft_putstr(lst->info.name);
+	if (lst->info.perm[0] == 'l')
+		printlink(lst->info.name, i.path);
 	ft_putchar('\n');
 }
 
-void	print(t_lst *lst, int skip, int a)
+void	print(t_lst *lst, int skip, int a, char *path)
 {
 	if (!lst)
 		return ;
 	if (a && lst->info.name[0] == '.')
-		print(lst->next, skip, a);
+		print(lst->next, skip, a, path);
 	else
 	{
 		if (skip == 'f' && lst->info.perm[0] != 'd')
-			print(lst->next, skip, a);
+			print(lst->next, skip, a, path);
 		else
 		{
 			if (skip == 'd' && lst->info.perm[0] == 'd')
-				print(lst->next, skip, a);
+				print(lst->next, skip, a, path);
 			else
 			{
 				ft_putstr(lst->info.name);
 				ft_putchar('\n');
-				print(lst->next, skip, a);
+				print(lst->next, skip, a, path);
 			}
 		}
 	}
+}
+
+void	printlink(char *name, char *path)
+{
+	char *buf;
+
+	buf = ft_strnew(512);
+	ft_putstr(" -> ");
+	ft_bzero(buf, 512);
+	readlink(getpath(path, name), buf, 512);
+	ft_putstr(buf);
+	free(buf);
 }
